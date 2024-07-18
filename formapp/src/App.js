@@ -24,18 +24,31 @@ function App() {
 //   }
 
 
-const [formData , setFormData] =useState( {firstName :"" , lastName:"" , email:""} );
+const [formData , setFormData] =useState( {firstName :"" , favCar:"",  mode:"" , lastName:"" 
+  , email:"" , comments : "" , isVisible: true} );
+
+  // console.log(formData)
+
 
 
 
 function changeHandler(event){
+   const {name ,value ,checked ,type} =event.target
   setFormData(prevFormData =>{
     return{
       ...prevFormData,
-     [ event.target.name ]: event.target.value
+     [ name ]: type==="checkbox" ? checked: value
     }
   });
   
+}
+
+function submitHandler(event){
+  event.preventDefault();
+  //send
+
+  console.log("finallu submitted")
+  console.log(formData)
 
 }
 
@@ -45,9 +58,16 @@ function changeHandler(event){
   return (
    
     <div>
-      <form>
-        <input type="text" placeholder="first name" 
-          onChange={changeHandler}
+      <form  onSubmit={submitHandler}>
+
+      <br/>
+      <br/>
+
+
+
+        <input type="text" 
+            placeholder="first name" 
+            onChange={changeHandler}
             name="firstName"
             value={formData.firstName}
           />
@@ -58,8 +78,9 @@ function changeHandler(event){
           <br/>
 
 
-        <input type="text" placeholder="last name" 
-          onChange={changeHandler}
+        <input type="text"
+            placeholder="last name" 
+            onChange={changeHandler}
             name="lastName"
             value={formData.lastName}
           />
@@ -70,11 +91,111 @@ function changeHandler(event){
 
 
 
-        <input type="email" placeholder="enter your email here " 
-          onChange={changeHandler}
+        <input type="email"
+            placeholder="enter your email here " 
+            onChange={changeHandler}
             name="email"
             value={formData.email}
           />
+
+
+          <br/>
+          <br/>
+
+
+
+          <textarea
+            placeholder="enter your comments"
+            onChange={changeHandler}
+            name="comments"
+            value={formData.comment}
+          />
+
+           <br/>
+          <br/>
+
+          <input
+            type="checkbox"
+            onChange={changeHandler}
+            name="isVisible"
+            id="isVisible"
+            checked ={formData.isVisible}
+          />
+          <label htmlFor="isVisible">am is visible ?</label> 
+
+
+          <br/>
+          <br/>
+          <fieldset>
+            <legend>
+
+            <input
+            type="radio"
+            onChange={changeHandler}
+            name="mode"
+            value="Online-mode"
+            id="Online-mode"
+            checked={formData.mode=="Online-mode"}
+          />
+
+          
+
+          <label htmlFor="Online-mode">Online mode</label>
+
+          <br/>
+          <br/>
+
+          <input
+            type="radio"
+            onChange={changeHandler}
+            name="mode"
+            value="Offline-mode"
+            id="Offline-mode"
+            checked={formData.mode=="Offline-mode"}
+          />
+
+          
+
+          <label htmlFor="Offline-mode">Offline mode</label>
+
+            </legend>
+          </fieldset>
+
+         
+
+          <br/>
+          <br/>
+          <label htmlFor="favCar">tell me your fav car</label>
+
+         <select   
+          onChange ={changeHandler}
+          name="favcar"
+          itemRef="favCar"
+          value={formData.favCar}
+          >
+
+            <option value="scoripo">scoripo</option>
+            <option value="fortuner">fortuner</option>
+            <option value="range-rover">range-rover</option>
+            <option value="swift">swift</option>
+          </select>
+
+
+{/* 
+       <input type="submit" 
+        value="submit"
+       /> */}
+
+
+       <br/>
+       <br/>
+
+
+       <button>Submit</button>
+
+          
+
+          
          
       </form>
     </div>
